@@ -19,6 +19,7 @@ namespace DatingApp.Controllers
             _repo = repo;
         }
 
+        [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto user)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -44,7 +45,6 @@ namespace DatingApp.Controllers
 
             await _repo.Register(userCreated, userForRegisterDto.Password);
             return StatusCode(201);
-
         }
 
 
