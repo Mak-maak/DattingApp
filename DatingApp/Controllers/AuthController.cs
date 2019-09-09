@@ -20,16 +20,18 @@ namespace DatingApp.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserForLoginDto user)
+        public async Task<IActionResult> Login([FromBody] UserForLoginDto userForLoginDto)
         {
+
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            await _repo.Login(user.Username, user.Password);
+            userForLoginDto.Username = userForLoginDto.Username.ToLower();
+            await _repo.Login(userForLoginDto.Username, userForLoginDto.Password);
             return Ok("User is created");
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
+        public async Task<IActionResult> Register([FromBody] UserForRegisterDto userForRegisterDto)
         {
             userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
 
