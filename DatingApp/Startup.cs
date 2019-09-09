@@ -1,4 +1,6 @@
 ﻿using DatingApp.Entity;
+using DatingApp.Interfaces;
+using DatingApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +25,7 @@ namespace DatingApp
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DatingApp")));
             services.AddCors();
+            services.AddScoped<IAuthRepositoryService, AusthService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
