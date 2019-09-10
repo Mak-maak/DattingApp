@@ -57,7 +57,7 @@ namespace DatingApp.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            return Ok(new {tokenString});
+            return Ok(new { tokenString });
         }
 
         /// <summary>
@@ -68,7 +68,8 @@ namespace DatingApp.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserForRegisterDto userForRegisterDto)
         {
-            userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
+            if (!string.IsNullOrEmpty(userForRegisterDto.Username))
+                userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
 
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
