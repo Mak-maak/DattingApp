@@ -37,7 +37,7 @@ namespace DatingApp.Controllers
             userForLoginDto.Username = userForLoginDto.Username.ToLower();
 
             var userDto = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
-            if (userDto == null) Unauthorized();
+            if (userDto == null) return Unauthorized();
 
 
             //generate Token
