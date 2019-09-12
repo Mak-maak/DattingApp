@@ -4,14 +4,12 @@ using System.Text;
 using DatingApp.Entity;
 using DatingApp.Interfaces;
 using DatingApp.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace DatingApp
@@ -30,7 +28,7 @@ namespace DatingApp
         {
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DatingApp")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddTransient<Seed>();
             services.AddCors();
             services.AddSwaggerGen(c =>
             {
@@ -48,10 +46,11 @@ namespace DatingApp
             });
 
             services.AddScoped<IAuthRepositoryService, AusthService>();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env , Seed Seeder)
         {
             if (env.IsDevelopment())
             {
@@ -63,6 +62,9 @@ namespace DatingApp
             }
 
             app.UseHttpsRedirection();
+
+            //Uncomment this to re seed our Db 
+//            Seeder.SeedUsers();
             app.UseCors(x => x.AllowAnyHeader().AllowCredentials().AllowAnyMethod().AllowAnyOrigin());
             app.UseAuthentication();
             app.UseSwagger();
