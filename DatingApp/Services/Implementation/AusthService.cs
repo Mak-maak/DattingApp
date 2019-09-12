@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DatingApp.Entity;
 using DatingApp.Models;
 using DatingApp.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace DatingApp.Services
+namespace DatingApp.Services.Implementation
 {
     public class AusthService : IAuthRepositoryService
     {

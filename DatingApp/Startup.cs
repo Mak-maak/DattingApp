@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AutoMapper;
 using DatingApp.Entity;
 using DatingApp.Repository;
-using DatingApp.Services;
+using DatingApp.Services.Implementation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using  AutoMapper;
 
 namespace DatingApp
 {
@@ -44,6 +46,7 @@ namespace DatingApp
                     { "Bearer", Enumerable.Empty<string>() },
                 });
             });
+            services.AddAutoMapper();
             services.AddScoped(typeof(IGenericRepository<,,>), typeof(GenericRepository<,,>));
             services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
             services.AddScoped<IAuthRepositoryService, AusthService>();
