@@ -6,8 +6,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using DatingApp.Dtos;
-using DatingApp.Interfaces;
 using DatingApp.Models;
+using DatingApp.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 

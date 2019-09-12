@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.Entity;
-using DatingApp.Interfaces;
 using DatingApp.Models;
+using DatingApp.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Services

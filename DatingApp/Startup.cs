@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 using DatingApp.Entity;
-using DatingApp.Interfaces;
+using DatingApp.Repository;
 using DatingApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,13 +44,14 @@ namespace DatingApp
                     { "Bearer", Enumerable.Empty<string>() },
                 });
             });
-
+            services.AddScoped(typeof(IGenericRepository<,,>), typeof(GenericRepository<,,>));
+            services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
             services.AddScoped<IAuthRepositoryService, AusthService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env , Seed Seeder)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, Seed Seeder)
         {
             if (env.IsDevelopment())
             {
@@ -63,8 +64,14 @@ namespace DatingApp
 
             app.UseHttpsRedirection();
 
+
+            #region seedingUserTable
+
             //Uncomment this to re seed our Db 
-//            Seeder.SeedUsers();
+            //            Seeder.SeedUsers();
+
+            #endregion
+
             app.UseCors(x => x.AllowAnyHeader().AllowCredentials().AllowAnyMethod().AllowAnyOrigin());
             app.UseAuthentication();
             app.UseSwagger();
